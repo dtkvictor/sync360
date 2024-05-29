@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  backend:
+    depends_on:
+      - database
+    build: ./backend-laravel    
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend-laravel:/var/www/html
+    command: sh -c "composer install; php artisan migrate; php artisan serve --host=0.0.0.0 --port=8080"
+  
+  frontend: 
+    depends_on:
+      - backend
+    build: ./frontend-vue
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./frontend-vue:/var/www/html
+    command: sh -c "npm install; npm run dev -- --port 8888 --host"
+
+  database:
+    image: mariadb:10.6.17-focal
+    ports:
+      - "8306:3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=password-123
+      - MARIADB_DATABASE=laravel
+    volumes:
+      - ./database-mysql:/var/lib/mysql

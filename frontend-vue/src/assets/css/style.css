@@ -1,0 +1,12 @@
+@import 'izitoast/dist/css/iziToast.min.css';
+@import 'material-icons/iconfont/material-icons.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #__nuxt {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
